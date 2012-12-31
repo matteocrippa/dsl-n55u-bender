@@ -3,7 +3,7 @@
 /*
  * Automatically generated C config: don't edit
  * Linux kernel version: 2.6.2219
- * Sun Dec 30 15:00:02 2012
+ * Mon Dec 31 08:33:12 2012
  */
 /*
  * DO NOT MODIFY.

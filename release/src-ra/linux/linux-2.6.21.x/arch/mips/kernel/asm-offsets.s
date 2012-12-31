@@ -20733,9 +20733,6 @@ $LASF976:
 	.ascii	"dq_dirty\000"
 $LASF732:
 	.ascii	"f_uid\000"
-$LASF1425:
-	.ascii	"/root/asuswrt-merlin/release/src-ra/linux/linux-2.6.21.x"
-	.ascii	"\000"
 $LASF1312:
 	.ascii	"module_sect_attrs\000"
 $LASF123:
@@ -21576,6 +21573,9 @@ $LASF122:
 	.ascii	"normal_prio\000"
 $LASF1049:
 	.ascii	"tree_lock\000"
+$LASF1425:
+	.ascii	"/root/asuswrt-bender/release/src-ra/linux/linux-2.6.21.x"
+	.ascii	"\000"
 $LASF905:
 	.ascii	"dqb_curspace\000"
 $LASF1009:
