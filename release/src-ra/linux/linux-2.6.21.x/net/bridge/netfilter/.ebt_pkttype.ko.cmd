@@ -1,0 +1,1 @@
+cmd_net/bridge/netfilter/ebt_pkttype.ko := /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip -r -o net/bridge/netfilter/ebt_pkttype.ko net/bridge/netfilter/ebt_pkttype.o net/bridge/netfilter/ebt_pkttype.mod.o

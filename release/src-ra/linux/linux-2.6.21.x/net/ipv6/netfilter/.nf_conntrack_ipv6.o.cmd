@@ -1,0 +1,1 @@
+cmd_net/ipv6/netfilter/nf_conntrack_ipv6.o := /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip  -r -o net/ipv6/netfilter/nf_conntrack_ipv6.o net/ipv6/netfilter/nf_conntrack_l3proto_ipv6.o net/ipv6/netfilter/nf_conntrack_proto_icmpv6.o net/ipv6/netfilter/nf_conntrack_reasm.o

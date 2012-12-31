@@ -1,0 +1,2 @@
+::sysinit:/etc_ro/rcS
+console::respawn:/bin/sh

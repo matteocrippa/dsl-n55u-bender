@@ -1,0 +1,1 @@
+cmd_net/ipv6/built-in.o :=  /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip  -r -o net/ipv6/built-in.o net/ipv6/ipv6.o net/ipv6/netfilter/built-in.o net/ipv6/addrconf_core.o net/ipv6/exthdrs_core.o net/ipv6/inet6_hashtables.o

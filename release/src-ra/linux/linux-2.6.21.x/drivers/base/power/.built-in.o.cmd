@@ -1,0 +1,1 @@
+cmd_drivers/base/power/built-in.o :=  /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip  -r -o drivers/base/power/built-in.o drivers/base/power/shutdown.o drivers/base/power/main.o drivers/base/power/suspend.o drivers/base/power/resume.o drivers/base/power/runtime.o drivers/base/power/sysfs.o

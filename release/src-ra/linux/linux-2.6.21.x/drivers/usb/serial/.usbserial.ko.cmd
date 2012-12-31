@@ -1,0 +1,1 @@
+cmd_drivers/usb/serial/usbserial.ko := /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip -r -o drivers/usb/serial/usbserial.ko drivers/usb/serial/usbserial.o drivers/usb/serial/usbserial.mod.o

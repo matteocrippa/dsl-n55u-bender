@@ -1,0 +1,7 @@
+UVC Webcam HOW-TO
+
+1. Run uvc_stream in console
+# uvc_stream -b
+
+2. Copy RT288x_SDK/source/user/uvc_stream/Run ntk_mjpeg_viewer_win.exe to 
+   Windows, and execute it.

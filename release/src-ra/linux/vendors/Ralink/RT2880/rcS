@@ -1,0 +1,13 @@
+#!/bin/sh
+hostname rt2880
+mount -a
+mkdir -p /var/run
+cat /etc_ro/motd
+nvram_daemon&
+goahead&
+
+#start telnetd
+telnetd
+
+#for syslogd
+mkdir -p /var/log

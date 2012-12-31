@@ -1,0 +1,1 @@
+cmd_net/sunrpc/auth_gss/rpcsec_gss_krb5.o := /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip  -r -o net/sunrpc/auth_gss/rpcsec_gss_krb5.o net/sunrpc/auth_gss/gss_krb5_mech.o net/sunrpc/auth_gss/gss_krb5_seal.o net/sunrpc/auth_gss/gss_krb5_unseal.o net/sunrpc/auth_gss/gss_krb5_seqnum.o net/sunrpc/auth_gss/gss_krb5_wrap.o

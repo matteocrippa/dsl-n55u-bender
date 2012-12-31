@@ -1,0 +1,1 @@
+cmd_drivers/usb/storage/usb-storage.ko := /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip -r -o drivers/usb/storage/usb-storage.ko drivers/usb/storage/usb-storage.o drivers/usb/storage/usb-storage.mod.o

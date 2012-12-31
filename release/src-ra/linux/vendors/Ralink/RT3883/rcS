@@ -1,0 +1,43 @@
+#!/bin/sh
+mount -a
+mkdir -p /var/run
+cat /etc_ro/motd
+nvram_daemon&
+#insmod ehci-hcd
+#mdev -s
+#mkdir /mnt/disk1
+#mkdir /mnt/disk2
+#mount /dev/sda1 /mnt/disk1
+#mount /dev/sdb1 /mnt/disk2
+#ifconfig eth2 up
+#ifconfig eth3 up
+#insmod e1000e
+#ifconfig eth0 up
+#brctl addbr br0 
+#brctl addif br0 eth0
+#brctl addif br0 eth2
+#ifconfig br0 10.10.10.254 netmask 255.255.255.0
+#reg s b0100000
+#reg w 4 1f01dc45
+#reg w 18 1e01dc45
+
+
+goahead&
+#ralink_init gen 2860
+#insmod rt2860v2_ap
+#ifconfig ra0 up
+#sleep 5
+#insmod RT3090_ap
+#ifconfig ra1 up
+#ifconfig eth2 up
+#brctl addbr br0 
+#brctl addif br0 eth2
+#brctl addif br0 ra0
+#brctl addif br0 ra1
+#ifconfig br0 10.10.10.254 netmask 255.255.255.0
+#config-vlan.sh 1 0
+#for telnet debugging
+telnetd
+
+#for syslogd
+mkdir -p /var/log

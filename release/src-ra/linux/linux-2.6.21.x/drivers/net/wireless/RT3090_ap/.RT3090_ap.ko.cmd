@@ -1,0 +1,1 @@
+cmd_drivers/net/wireless/RT3090_ap/RT3090_ap.ko := /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip -r -o drivers/net/wireless/RT3090_ap/RT3090_ap.ko drivers/net/wireless/RT3090_ap/RT3090_ap.o drivers/net/wireless/RT3090_ap/RT3090_ap.mod.o

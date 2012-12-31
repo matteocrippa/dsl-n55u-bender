@@ -1,0 +1,1 @@
+cmd_net/ipv4/netfilter/nf_nat.o := /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip  -r -o net/ipv4/netfilter/nf_nat.o net/ipv4/netfilter/nf_nat_core.o net/ipv4/netfilter/nf_nat_helper.o net/ipv4/netfilter/nf_nat_proto_unknown.o net/ipv4/netfilter/nf_nat_proto_tcp.o net/ipv4/netfilter/nf_nat_proto_udp.o net/ipv4/netfilter/nf_nat_proto_icmp.o

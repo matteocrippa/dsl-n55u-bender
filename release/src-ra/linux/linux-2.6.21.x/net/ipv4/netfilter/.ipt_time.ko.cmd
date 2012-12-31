@@ -1,0 +1,1 @@
+cmd_net/ipv4/netfilter/ipt_time.ko := /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip -r -o net/ipv4/netfilter/ipt_time.ko net/ipv4/netfilter/ipt_time.o net/ipv4/netfilter/ipt_time.mod.o

@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style>
+html{
+	margin:0 0;
+	padding:0px;
+}
+body{
+	display: block;
+	overflow: hidden;
+	background: #e8e8e8;
+}
+
+tr.odd {
+	/*cursor: pointer;*/
+	background-color: #E1FBF8;
+}
+tr.even {
+	/*cursor: pointer;*/
+	background-color: #DDD;
+}
+tr.synceven {
+	/*cursor: pointer;*/
+	background-color: #FFCF73;
+}
+tr.syncodd {
+	/*cursor: pointer;*/
+	background-color: #F9FF48;
+}
+table#ntb { 
+  border: 1px; 
+  font-family: arial;
+	font-size:100%;
+	border-collpase:collpase; 
+}
+
+table thead {
+	color:#F3F6FB;
+	background-color: #595959;
+}
+
+.tab_container{
+	overflow:auto;
+}
+
+.dellink{
+background:transparent url("style-metro.png") no-repeat top left;
+background-position: -479px -313px;
+width:40px;
+height:28px;
+}
+</style>
+<script type="text/javascript" src="/smb/js/tools.js"></script>
+<script type="text/javascript" src="/smb/js/davclient_tools.js"></script>
+<link href="tabs.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+var m = new lang();
+var g_storage = new myStorage();
+
+$("document").ready(function() {
+	var loc_lan = String(window.navigator.userLanguage || window.navigator.language).toLowerCase();		
+	var lan = ( g_storage.get('lan') == undefined ) ? loc_lan : g_storage.get('lan');
+	m.setLanguage(lan);
+	
+	var init_page = ( getUrlVars()["p"] == undefined ) ? 0 : getUrlVars()["p"];
+	//alert(init_page);
+	
+	// 預設顯示第一個 Tab
+	var _showTab = init_page;
+	$('ul.tabs li').eq(_showTab).addClass('active');
+	$('.tab_content').hide().eq(_showTab).show();
+	
+	// 當 li 頁籤被點擊時...
+	// 若要改成滑鼠移到 li 頁籤就切換時, 把 click 改成 mouseover
+	$('ul.tabs li').click(function() {
+		// 找出 li 中的超連結 href(#id)
+		var $this = $(this),
+			_clickTab = $this.find('a').attr('href');
+		// 把目前點擊到的 li 頁籤加上 .active
+		// 並把兄弟元素中有 .active 的都移除 class
+		$this.addClass('active').siblings('.active').removeClass('active');
+		// 淡入相對應的內容並隱藏兄弟元素
+		$(_clickTab).stop(false, true).fadeIn().siblings().hide();
+ 		 		
+ 		if(_clickTab=="#tab3")
+ 			getLatestVersion();
+ 		
+		return false;
+	}).find('a').focus(function(){
+		this.blur();
+	});
+	
+	$("button#btn_rescan").click(function(){
+		$("button#btn_rescan").attr("disabled", true);
+		$("button#btn_rescan").text("Wait");
+		parent.doRescanSamba();
+	});
+	
+	$('li#rescan a').text(m.getString('title_rescan'));
+	$('li#sharelink a').text(m.getString('title_sharelink'));
+	$('button#ok').text(m.getString('btn_ok'));
+	$('button#cancel').text(m.getString('btn_close'));
+	$('#btn_rescan').text(m.getString('btn_rescan'));
+	$('span#desc_rescan').text(m.getString('title_desc_rescan'));
+	
+	$('span#desc_version').text(m.getString('title_version')+": ");
+	$('span#version').text(g_storage.get('router_version'));
+	
+	refreshShareLinkList();
+});
+
+function getLatestVersion(){
+	var client = new davlib.DavClient();
+	client.initialize();
+	
+	$("#update").text(m.getString('msg_check_latest_ver'));
+	
+	client.GETLATESTVER("/", function(error, content, statusstring){	
+		if(error==200){
+			var data = parseXml(statusstring);
+			var x = $(data);
+			
+			var ver = x.find("version").text();
+			var a = ver.split("_");
+			var build_no = a[1];
+			
+			var cur_ver = g_storage.get('router_version');
+			var b = cur_ver.split(".");
+			var cur_build_no = b[3];
+			
+			if(build_no>cur_build_no)
+				$("#update").text(m.getString('msg_update_latest_ver'));
+			else
+				$("#update").text(m.getString('msg_latest_ver'));
+		}
+		else{
+			$("#update").text(m.getString('msg_check_latest_ver_error'));
+		}
+	
+		client = null;
+	});
+}
+
+function refreshShareLinkList(){
+	var client = new davlib.DavClient();
+	client.initialize();
+	client.GSLL("/", function(error, content, statusstring){	
+		if(error==200){
+			var data = parseXml(statusstring);
+			
+			$("#tab2").empty();
+			
+			var table_html = "<table id='sharelink' width='100%' border='0' style='table-layout:fixed'>";
+			table_html += "<thead><tr>";
+      table_html += "<th scope='col' class='filename' style='width:20%'>" + m.getString('table_filename') + "</th>";
+      table_html += "<th scope='col' class='createtime' style='width:25%'>" + m.getString('table_createtime') + "</th>";
+      table_html += "<th scope='col' class='expiretime' style='width:25%'>" + m.getString('table_expiretime') + "</th>";
+      table_html += "<th scope='col' class='lefttime' style='width:20%'>" + m.getString('table_lefttime') + "</th>";
+      table_html += "<th scope='col' class='remove' style='width:10%'>" + m.getString('func_delete') + "</th>";
+    	table_html += "</tr></thead>";
+    	
+    	table_html += "<tbody id='ntb'>";
+    	
+    	var i = 0;
+			$(data).find('sharelink').each(function(){
+				
+				var filename = decodeURI($(this).attr("filename"));
+				var url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr("url") + "/" + filename;
+				var createtime = $(this).attr("createtime");
+				var expiretime = $(this).attr("expiretime");
+				var lefttime = parseFloat($(this).attr("lefttime"));
+				var hour = parseInt(lefttime/3600);
+				var minute = parseInt(lefttime%3600/60);
+												
+				table_html += "<tr nid='" + i + "' class='even'>";
+    		table_html += "<td fid='filename' align='center'><a href='" + url + "' target='_blank'>" + filename + "</a></td>";
+       	table_html += "<td fid='createtime' align='center'>" + createtime + "</td>";
+       	if(expiretime==0){
+       		table_html += "<td fid='expiretime' align='center'>" + m.getString('title_unlimited') + "</td>";
+       		table_html += "<td fid='lefttime' align='center'>" + m.getString('title_unlimited') + "</td>";
+      	}
+      	else{
+       		table_html += "<td fid='expiretime' align='center'>" + expiretime + "</td>";
+       		table_html += "<td fid='lefttime' align='center'>" + hour + " hours " + minute + " mins" + "</td>";
+      	}
+       	table_html += "<td fid='remove' align='center'><a>";
+        table_html += "<div class='dellink' title='remove' link='" + $(this).attr("url") + "' style='cursor:pointer'></div>";
+        table_html += "</a></td>";
+       	
+      	table_html += "</tr>";
+      
+      	i++;
+      	
+			});
+			
+			table_html += "</tbody>";      
+			table_html += "</table>";
+	
+			$(table_html).appendTo($("#tab2"));
+			
+			$(".dellink").click(function(){
+				
+				var r=confirm(m.getString('msg_confirm_delete_sharelink'));
+				
+				if (r==true){
+					client.REMOVESL("/", $(this).attr("link"), function(error, content, statusstring){	
+						if(error==200){
+							refreshShareLinkList();
+						}
+					});
+				}
+			});
+		}
+	});
+}
+
+function parseXml(xml) {
+  if (jQuery.browser.msie) {
+  	var xmlDoc = new ActiveXObject("Microsoft.XMLDOM"); 
+    xmlDoc.loadXML(xml);
+    xml = xmlDoc;
+  }   
+  return xml;
+}
+
+function doOK(e) {
+	parent.closeJqmWindow();
+};
+
+function doCancel(e) {
+	parent.closeJqmWindow();
+};
+
+function getUrlVars(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++){
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+</script>
+</head>
+<body>
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="overflow:hidden;">
+	<tr>
+  	<td>
+	    <div class="abgne_tab">
+				<ul class="tabs">
+					<li id='rescan'><a href="#tab1">重新搜尋</a></li>
+					<li id='sharelink'><a href="#tab2">分享清單</a></li>
+					<li id='version'><a href="#tab3">版本</a></li>
+				</ul>
+				<div class="tab_container">
+					<div id="tab1" class="tab_content">
+						<span id="desc_rescan"></span>
+						<button id="btn_rescan">開始重新搜尋</button>
+				  </div>
+				  <div id="tab2" class="tab_content" style="padding:0">			    	
+					</div>
+					<div id="tab3" class="tab_content">
+						<span id="desc_version"></span>
+						<span id="version"></span><br>
+						<span id="update" style="color:red"></span>
+					</div>
+				</div>
+			</div>
+    </td>    
+  </tr>
+  <tr style='height:20px'></tr>
+  <tr>
+  	<td>
+  	<div class="table_block_footer" style="text-align:right">
+    	<!--<button id="ok" class='btnStyle' onClick="doOK();" disabled="true">OK</button>-->
+      <button id="cancel" class="btnStyle" onClick="doCancel();">Close</button>
+    </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,1 @@
+cmd_net/bridge/netfilter/ebt_stp.ko := /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip -r -o net/bridge/netfilter/ebt_stp.ko net/bridge/netfilter/ebt_stp.o net/bridge/netfilter/ebt_stp.mod.o

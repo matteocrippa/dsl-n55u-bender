@@ -1,0 +1,1 @@
+cmd_net/sunrpc/auth_gss/auth_rpcgss.ko := /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip -r -o net/sunrpc/auth_gss/auth_rpcgss.ko net/sunrpc/auth_gss/auth_rpcgss.o net/sunrpc/auth_gss/auth_rpcgss.mod.o

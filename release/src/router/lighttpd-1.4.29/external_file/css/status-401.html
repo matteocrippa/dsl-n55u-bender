@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-control" content="no-cache">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon" href="/smb/css/appicon.png">
+<link rel="apple-touch-startup-image" href="/smb/css/startup.png">
+<title>AiCloud</title>
+<style>
+html{
+margin:0 0;
+padding:0px;
+font-family:"Segoe UI",Arial;
+}
+body{
+display: block;
+overflow: hidden;
+}
+
+input,#ok {
+background:transparent url("/smb/css/style-metro.png") no-repeat top left;
+}
+
+#logo{
+width:300px;
+height:128px;
+background:transparent url("/smb/css/logo.jpg") no-repeat top left;
+}
+
+#ok{
+background-position: -120px -95px;
+width:40px;
+height:40px;
+float:right;
+}
+#title1{
+color:#fff;
+font-size:30px
+}
+#title2{
+color:#fff;
+font-size:20px
+}
+input {
+font-size: 15px;
+text-shadow: 0px 1px 0px white;
+outline: none;
+background-position: -280px -414px;
+-webkit-border-radius: 0;
+-moz-border-radius: 0;
+border-radius: 0;
+border: 0;
+-webkit-box-shadow: 0 0 0;
+-moz-box-shadow: 0 0 0;
+box-shadow: 0 0 0;
+}
+div.cap_num{
+width:40px;
+height:40px;
+float:right;
+}
+.unselectable {
+-moz-user-select: -moz-none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+-o-user-select: none;
+user-select: none;
+}
+</style>
+<script type="text/javascript" src="/smb/js/tools.js"></script>
+<script type='text/javascript' src='/smb/js/davclient_tools.js'></script>
+<script type="text/javascript">
+var this_url;
+var m = new lang();
+var g_storage = new myStorage();
+var g_captcha = -1;
+
+$("document").ready(function() {
+	var loc_lan = String(window.navigator.userLanguage || window.navigator.language).toLowerCase();		
+	var lan = ( g_storage.get('lan') == undefined ) ? loc_lan : g_storage.get('lan');
+	m.setLanguage(lan);
+	
+	$('label#username').text(m.getString('title_username2'));
+	$('label#password').text(m.getString('title_password2'));
+	$('label#captcha').text(m.getString('title_captcha'));
+	
+	this_url = getUrlVars()["v"];
+	
+	var browserVer = navigator.userAgent.toLowerCase();
+	if( browserVer.indexOf("msie") != -1 && 
+			getInternetExplorerVersion() <= 7 ){
+		alert(m.getString('msg_browsersupport'));
+	}
+	
+	$(".captcha").css("display","none");	
+			
+	generateCaptcha();
+	
+});
+
+function parseXml(xml) {
+  if (jQuery.browser.msie) {
+  	var xmlDoc = new ActiveXObject("Microsoft.XMLDOM"); 
+    xmlDoc.loadXML(xml);
+    xml = xmlDoc;
+  }   
+  return xml;
+}
+
+function generateCaptcha(){
+	
+	$.ajax({
+		url: 'GetCaptchaImage',
+		data: '',
+		type: 'GET',
+		dataType: 'xml',
+		timeout: 20000,
+		error: function(){
+			//alert('Error loading XML document');
+		},
+		success: function(xml){			
+			var data = parseXml(xml);
+			var captcha_enable = $(data).find('enable').text();
+			if(captcha_enable==1){
+				var image_data1 = $(data).find('img1').text();
+				var image_data1 = $(data).find('img1').text();
+				var image_data2 = $(data).find('img2').text();
+				var image_data3 = $(data).find('img3').text();
+				var image_data4 = $(data).find('img4').text();
+				g_captcha = $(data).find('code').text();
+				
+				var captcha_pattern = "";
+				$("#captcha_pattern").empty();
+				
+				captcha_pattern += "<div class='cap_num' style='background-image: url(" + image_data4 + ")'></div>";
+				captcha_pattern += "<div class='cap_num' style='background-image: url(" + image_data3 + ")'></div>";
+				captcha_pattern += "<div class='cap_num' style='background-image: url(" + image_data2 + ")'></div>";
+				captcha_pattern += "<div class='cap_num' style='background-image: url(" + image_data1 + ")'></div>";
+				
+				$(captcha_pattern).appendTo("#captcha_pattern");
+				
+				$(".captcha").css("display","block");
+				
+				$("#main").css("height",420);
+			}
+		}
+	});
+}
+
+function getInternetExplorerVersion(){
+   var rv = -1; // Return value assumes failure.
+   if (navigator.appName == 'Microsoft Internet Explorer')
+   {
+      var ua = navigator.userAgent;
+      var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+      if (re.exec(ua) != null)
+         rv = parseFloat( RegExp.$1 );
+   }
+   return rv;
+}
+
+function doOK(e) {
+	var captcha = $('input#captcha').val();
+	var user = "";
+	var pass = "";
+	var auth = "";
+	
+	if(g_captcha!=-1&&captcha!=g_captcha){
+		alert(m.getString('msg_error_captcha'));
+	}
+	else{
+		user = $('input#username').val();
+		pass = $('input#password').val();
+		auth = "Basic " + Base64.encode(user + ":" + pass);
+	}
+	
+	var client = new davlib.DavClient();
+	client.initialize();
+	
+	client.PROPFIND('/', auth, function(error, statusstring, content){
+		if(error==401){
+			$('input#password').attr("value","");
+		}
+		else{
+			setTimeout(function(){
+				window.location.reload(true);
+			}, 100);
+		}
+	});
+};
+
+function getUrlVars(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++){
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+function onKeyHandler(e){
+	if(e.keyCode==13)
+		doOK(e);
+}
+
+
+</script>
+</head>
+<body style='padding-top:20px;margin:0;background-color:#014051'>
+
+<table width="100%" border="0" valign="middle" align="center" cellpadding="0" cellspacing="0">
+	<tbody><tr height="128px">
+		<!--<td valign="middle" align="center"><img src="/smb/css/logo.png" width="280" height="84" alt=""></td>-->
+		<td valign="middle" align="center"><div id="logo"></div></td>
+	</tr></tbody>
+</table>
+
+<table width="100%" border="0" valign="middle" align="center" cellpadding="0" cellspacing="0">
+	<tbody>
+		<tr>
+		<td valign="middle" align="center">
+			<div style="width:300px;height:88px;background-color:#01536B;padding-top:10px">
+				<div id="title1">Welcome.</div>
+				<div id="title2">Who’s coming home?</div>
+			</div>
+		</td>
+		</tr>
+		<tr height="7px"></tr>
+	</tbody>
+</table>
+
+<table width="100%" height="100%">
+	<tbody><tr>
+		<td valign="middle" align="center">
+
+			<table valign="middle" align="center" border="0" cellpadding="0" cellspacing="0">
+				<tbody><tr>
+					<td align="left" background="" height="106" alt="">		
+						<div id="main" style="width:300px;height:385px;background-color:#008F6D">
+							<table border="0" cellpadding="0" cellspacing="3" style="position: relative;left:40px;padding-top:20px">
+									<tbody>
+										<tr>
+											<td><font color="white" size="4"><label id="username">Username :</label></font></td>
+										</tr>
+										<tr height="5px"></tr>
+										<tr>
+					          	<td><input id="username" name="username" type="text" size="20" autocapitalize="off" style="font-size:20px;width:220px;height:36px"></td>
+					          </tr>
+					          <tr style="height:10px"></tr>
+					          <tr> 
+					            <td><font color="white" size="4"><label id="password">Password :</label></font></td>
+					          </tr>
+					          <tr height="5px"></tr>
+					          <tr> 
+					            <td><input id="password" name="password" type="password" size="20" style="font-size:20px;width:220px;height:36px" onkeydown="return onKeyHandler(event)"></td>
+					          </tr>
+					           <tr style="height:10px"></tr>
+					          <tr class="captcha" style="display:none">
+											<td><font color="white" size="4"><label id="captcha">Random no. :</label></font></td>
+										</tr>
+										<tr class="captcha" height="5px" style="display:none"></tr>
+										<tr class="captcha" style="display:none">
+					          	<td>
+					          		<input id="captcha" name="captcha" type="text" size="20" autocapitalize="off" maxlength="4" style="font-size:20px;width:220px;height:36px" onkeydown="return onKeyHandler(event)">
+					          	</td>
+					          </tr>
+					          <tr class="captcha" height="5px" style="display:none"></tr>
+					          <tr class="captcha" style="display:none">
+					          	<td><div id="captcha_pattern" class="unselectable" name="captcha_pattern" style="width:220px;height:40px;float:left" onclick="generateCaptcha()"></div></td>
+					          </tr>
+					          <tr style="height:10px"></tr>
+					          <tr> 
+					          	<td colspan="2" align="center"><div id="ok" onClick="doOK();"></div></td>
+					        	</tr>
+					        </tbody>
+					    </table>
+				    </div>
+					</td>
+				</tr></tbody>
+			</table>
+
+		</td>
+	</tr></tbody>
+</table>
+
+</body>
+</html>

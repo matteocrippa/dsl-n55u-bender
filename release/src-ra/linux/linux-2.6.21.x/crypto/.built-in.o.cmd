@@ -1,0 +1,1 @@
+cmd_crypto/built-in.o :=  /opt/buildroot-gcc342/bin/mipsel-linux-uclibc-ld  -m elf32ltsmip  -r -o crypto/built-in.o crypto/api.o crypto/scatterwalk.o crypto/cipher.o crypto/digest.o crypto/compress.o crypto/crypto_algapi.o crypto/blkcipher.o crypto/crypto_hash.o crypto/cryptomgr.o crypto/hmac.o crypto/sha1.o crypto/ecb.o crypto/cbc.o crypto/arc4.o

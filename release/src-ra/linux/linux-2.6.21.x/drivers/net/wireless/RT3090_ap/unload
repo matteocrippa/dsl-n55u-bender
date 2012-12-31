@@ -1,0 +1,4 @@
+ifconfig ra0 down
+rmmod rtnet3090ap
+rmmod rt3090ap
+rmmod rtutil3090ap
