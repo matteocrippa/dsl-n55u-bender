@@ -138,7 +138,7 @@ function showWirelessInfo(){
 
     // 2.4 GHz
     wirelessInfo +="<tr class='";
-    if(is2GEnabled == -1)
+    if(is2GEnabled != -1)
         wirelessInfo +="error";
     else
         wirelessInfo +="success";
@@ -181,7 +181,7 @@ function showWirelessInfo(){
 
     // 5 GHz
     wirelessInfo +="<tr class='";
-    if(is5GEnabled == -1)
+    if(is5GEnabled != -1)
         wirelessInfo +="error";
     else
         wirelessInfo +="success";
