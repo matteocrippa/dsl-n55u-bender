@@ -99,9 +99,15 @@ int ej_show_sysinfo(int eid, webs_t wp, int argc, char_t ** argv)
 			}
 
 		} else if(strcmp(type,"cpu.freq") == 0) {
-			tmp = nvram_get("clkfreq");
-			if (tmp)
-				sscanf(tmp,"%[^,]s", result);
+
+            char *buffer = read_whole_file("/proc/cpuinfo");
+
+            if(buffer){
+                tmp = strstr(buffer, "BogoMIPS");
+                if (tmp)
+                    sscanf(tmp, "BogoMIPS  :  %[^\n]", result);
+                free(buffer);
+            }
 
 		} else if(strcmp(type,"memory.total") == 0) {
 			sysinfo(&sys);
