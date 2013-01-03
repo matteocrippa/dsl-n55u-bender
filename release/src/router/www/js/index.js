@@ -74,10 +74,17 @@ function showDslInfo(){
 function showLanInfo(){
     var lanInfo = "";
 
+    var isDhcp = '<% nvram_get("dhcp_enable_x"); %>';
+
+    if(isDhcp)
+        isDhcp = 'Active';
+    else
+        isDhcp = 'Disabled';
+
     lanInfo += '<tr class="info">';
     lanInfo += '<td><% nvram_get("lan_ipaddr"); %></td>';
     lanInfo += '<td><% nvram_get("lan_netmask_rt"); %></td>';
-    lanInfo += '<td><% nvram_match("lan_proto", "dhcp", "Active"); %></td>';
+    lanInfo += '<td>'+isDhcp+'</td>';
     lanInfo += '</tr>';
 
     // populate html
@@ -99,7 +106,7 @@ function showWirelessInfo(){
     var wirelessInfo = "";
 
     // get wireless log (both 2.4GHz and 5GHz)
-    var wirelessLog = '<% nvram_dump("wlan11b_2g.log","wlan11b.sh"); %>';
+    var wirelessLog = $('#wirelessLog').val();
     var is2GEnabled = wirelessLog.search('2.4 GHz radio is disabled');
     var is5GEnabled = wirelessLog.search('5 GHz radio is disabled');
 
@@ -143,7 +150,7 @@ function showWirelessInfo(){
     else
         wirelessInfo +="<td>Active</td>";
     wirelessInfo +="<td>"+wirelessSecurity2G+"</td>";
-    wirelessInfo +="<td><% nvram_get('wl0_channel'); %></td>";
+    wirelessInfo +="<td><% nvram_get("wl0_channel"); %></td>";
     wirelessInfo +="</tr>";
 
 
@@ -186,7 +193,7 @@ function showWirelessInfo(){
     else
         wirelessInfo +="<td>Active</td>";
     wirelessInfo +="<td>"+wirelessSecurity5G+"</td>";
-    wirelessInfo +="<td><% nvram_get('wl1_channel'); %></td>";
+    wirelessInfo +="<td><% nvram_get("wl1_channel"); %></td>";
     wirelessInfo +="</tr>";
 
     // populate html
@@ -202,7 +209,7 @@ function showClients(){
     var clientArray = clientString.split(",");
 
     // contains information about dhcp devices
-    var dhcpString = '<% nvram_dump("leases.log", "leases.sh"); %>';
+    var dhcpString = $('#dhcpString').val();
     // convert it to array
     var dhcpArray = dhcpString.split("\n");
     // remove the headers
@@ -240,7 +247,7 @@ function showClients(){
                     connType = "DHCP";
 
                     // split dhcp fields into tokens
-                    var dhcpFields = dhcpArray[i].splice(" ");
+                    var dhcpFields = dhcpArray[i].split(" ");
 
                     // set deviceName
                     deviceName = dhcpFields[dhcpFields.length-1];
@@ -267,22 +274,24 @@ function showUsb(){
     var usbInfo = "";
 
     // usb 1 info
-    var usb1_type = "<% nvram_get('usb_path1'); %>";
-    var usb1_object = "<% nvram_get('usb_path1_manufacturer'); %> <% nvram_get('usb_path1_product'); %>";
-    var usb1_removed = "<% nvram_get('usb_path1_removed'); %>";
+    var usb1_type = '<% nvram_get("usb_path1"); %>';
+    var usb1_object = '<% nvram_get("usb_path1_manufacturer"); %> <% nvram_get("usb_path1_product"); %>';
+    var usb1_removed = '<% nvram_get("usb_path1_removed"); %>';
 
     // replace usb type with correct icon
     if(usb1_type == "storage")
         usb1_type = "<i class='icon-hdd'></i>";
     else if(usb1_type == "printer")
         usb1_type = "<i class='icon-print'></i>";
-    else
+    else if(usb1_type == "modem")
         usb1_type = "<i class='icon-signal'></i>";
+    else
+        usb1_type = "";
 
     // usb 2 info
-    var usb2_type = "<% nvram_get('usb_path2'); %>";
-    var usb2_object = "<% nvram_get('usb_path2_manufacturer'); %> <% nvram_get('usb_path2_product'); %>";
-    var usb2_removed = "<% nvram_get('usb_path2_removed'); %>";
+    var usb2_type = '<% nvram_get("usb_path2"); %>';
+    var usb2_object = '<% nvram_get("usb_path2_manufacturer"); %> <% nvram_get("usb_path2_product"); %>';
+    var usb2_removed = '<% nvram_get("usb_path2_removed"); %>';
 
     // replace usb type with correct icon
     if(usb2_type == "storage")
