@@ -27,6 +27,11 @@
 
 typedef uint32_t __u32;
 
+uint32_t gpio_dir(uint32_t gpio, int dir)
+{
+	return ralink_gpio_init(gpio, dir);
+}
+
 uint32_t get_gpio(uint32_t gpio)
 {
 	return ralink_gpio_read_bit(gpio);
@@ -74,7 +79,7 @@ int check_imageheader(char *buf, long *filelen)
 	if(buf[0]==0x27&&buf[1]==0x05&&buf[2]==0x19&&buf[3]==0x56)
 	{
 		if(strcmp(buf+36, nvram_safe_get("productid"))==0) {
-			filelenptr=(buf+12);
+			filelenptr=(long*) (buf+12);
 			tmp=*filelenptr;
 			*filelen=SWAP_LONG(tmp);
 			*filelen+=64;			
@@ -246,8 +251,7 @@ int get_radio(int unit, int subunit)
 
 void set_radio(int on, int unit, int subunit)
 {
-	char tmpstr[32];
-	char tmp[100], prefix[] = "wlXXXXXXXXXXXXXX";
+	char /*tmp[100],*/ prefix[] = "wlXXXXXXXXXXXXXX";
 
 	if (subunit > 0)
 		snprintf(prefix, sizeof(prefix), "wl%d.%d_", unit, subunit);
@@ -261,5 +265,29 @@ void set_radio(int on, int unit, int subunit)
 	if(unit==0)
 		doSystem("iwpriv %s set RadioOn=%d", WIF_2G, on);
 	else doSystem("iwpriv %s set RadioOn=%d", WIF, on);
+}
+
+char *wif_to_vif(char *wif)
+{
+	static char vif[32];
+	int unit = 0, subunit = 0;
+	char tmp[100], prefix[] = "wlXXXXXXXXXXXXXX";
+
+	vif[0] = '\0';
+
+	for (unit = 0; unit < 2; unit++)
+		for (subunit = 1; subunit < 4; subunit++)
+		{
+			snprintf(prefix, sizeof(prefix), "wl%d.%d", unit, subunit);
+			
+			if (nvram_match(strcat_r(prefix, "_ifname", tmp), wif))
+			{
+				sprintf(vif, "%s", prefix);
+				goto RETURN_VIF;
+			}
+		}
+
+RETURN_VIF:
+	return vif;
 }
 

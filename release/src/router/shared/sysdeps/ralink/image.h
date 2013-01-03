@@ -151,6 +151,13 @@
 #define MAX_STRING 12
 #define MAX_VER 4
 
+/* If hw[i].kernel == ROOTFS_OFFSET_MAGIC,
+ * rootfilesystem offset (uImage header size + kernel size)
+ * can be calculated by following equation:
+ * (hw[i].minor << 16) | (hw[i+1].major << 8) | (hw[i+1].minor)
+ */
+#define ROOTFS_OFFSET_MAGIC	0xA9	/* Occupy two version_t		*/
+
 typedef struct {
 	uint8_t major;
 	uint8_t minor; 

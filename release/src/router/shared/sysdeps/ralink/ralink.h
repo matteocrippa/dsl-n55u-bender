@@ -24,7 +24,9 @@
 #define WIF_2G	"rai0"
 #define URE	"apcli0"
 
+#ifndef ETHER_ADDR_LEN
 #define ETHER_ADDR_LEN		6
+#endif
 #define MAX_NUMBER_OF_MAC	64
 
 #define MODE_CCK		0
@@ -36,6 +38,9 @@
 #define BW_40			1
 #define BW_BOTH			2
 #define BW_10			3
+
+#define INIC_VLAN_ID_START	4 //first vlan id used for RT3352 iNIC MII
+#define INIC_VLAN_IDX_START	2 //first available index to set vlan id and its group.
 
 // MIMO Tx parameter, ShortGI, MCS, STBC, etc.  these are fields in TXWI. Don't change this definition!!!
 typedef union  _MACHTTRANSMIT_SETTING {
@@ -64,6 +69,36 @@ typedef union  _MACHTTRANSMIT_SETTING_2G {
         } field;
         unsigned short	word;
  } MACHTTRANSMIT_SETTING_2G, *PMACHTTRANSMIT_SETTING_2G;
+
+typedef struct _RT_802_11_MAC_ENTRY_RT3352_iNIC {
+    unsigned char	ApIdx;
+    unsigned char	Addr[ETHER_ADDR_LEN];
+    unsigned char	Aid;
+    unsigned char	Psm;	// 0:PWR_ACTIVE, 1:PWR_SAVE
+    unsigned char	MimoPs;	// 0:MMPS_STATIC, 1:MMPS_DYNAMIC, 3:MMPS_Enabled
+    char		AvgRssi0;
+    char		AvgRssi1;
+    char		AvgRssi2;
+    unsigned int	ConnectedTime;
+    MACHTTRANSMIT_SETTING_2G	TxRate;
+    MACHTTRANSMIT_SETTING_2G	MaxTxRate;
+} RT_802_11_MAC_ENTRY_RT3352_iNIC, *PRT_802_11_MAC_ENTRY_RT3352_iNIC;
+
+typedef struct _RT_802_11_MAC_ENTRY_RT3883 {
+    unsigned char	ApIdx;
+    unsigned char	Addr[ETHER_ADDR_LEN];
+    unsigned char	Aid;
+    unsigned char	Psm;     // 0:PWR_ACTIVE, 1:PWR_SAVE
+    unsigned char	MimoPs;  // 0:MMPS_STATIC, 1:MMPS_DYNAMIC, 3:MMPS_Enabled
+    char		AvgRssi0;
+    char		AvgRssi1;
+    char		AvgRssi2;
+    unsigned int	ConnectedTime;
+    MACHTTRANSMIT_SETTING_2G       TxRate;
+    unsigned int	LastRxRate;
+    short		StreamSnr[3];
+    short		SoundingRespSnr[3];
+} RT_802_11_MAC_ENTRY_RT3883, *PRT_802_11_MAC_ENTRY_RT3883;
 
 typedef struct _RT_802_11_MAC_ENTRY {
     unsigned char	ApIdx;
@@ -103,6 +138,22 @@ typedef struct _RT_802_11_MAC_TABLE_2G {
     unsigned long	Num;
     RT_802_11_MAC_ENTRY_2G Entry[MAX_NUMBER_OF_MAC];
 } RT_802_11_MAC_TABLE_2G, *PRT_802_11_MAC_TABLE_2G;
+
+typedef struct _SITE_SURVEY_RT3352_iNIC
+{
+	char channel[4];
+	unsigned char ssid[33];
+	char bssid[20];
+	char authmode[15];	//security part1
+	char encryption[8];	//security part2 and need to shift data
+	char signal[9];
+	char wmode[8];
+	char extch[7];
+	char nt[3];
+	char wps[4];
+	char dpid[4];
+	char newline;
+} SITE_SURVEY_RT3352_iNIC;
 
 typedef struct _SITE_SURVEY 
 { 
@@ -180,6 +231,7 @@ typedef enum _RT_802_11_PHY_MODE {
 } RT_802_11_PHY_MODE;
 #endif
 
+#define OFFSET_MTD_FACTORY	0x40000
 #define OFFSET_BOOT_VER		0x4018A
 #define OFFSET_COUNTRY_CODE	0x40188
 #define OFFSET_MAC_ADDR		0x40004
@@ -188,10 +240,17 @@ typedef enum _RT_802_11_PHY_MODE {
 #define OFFSET_MAC_GMAC0	0x40028
 #define OFFSET_PIN_CODE		0x40180
 #define OFFSET_TXBF_PARA	0x401A0
+#define OFFSET_ODMPID		0x4ffb0 //the shown model name (for Bestbuy and others)
 #define OFFSET_FAIL_RET		0x4ffc0
 #define OFFSET_FAIL_BOOT_LOG	0x4ffd0	//bit operation for max 100
 #define OFFSET_FAIL_DEV_LOG	0x4ffe0	//bit operation for max 100
 #define OFFSET_SERIAL_NUMBER	0x4fff0
+
+#define OFFSET_POWER_5G_TX0_36_x6	0x40096
+#define OFFSET_POWER_5G_TX1_36_x6	0x400CA
+#define OFFSET_POWER_5G_TX2_36_x6	0x400FE
+#define OFFSET_POWER_2G		0x480DE
+
 
 #define RA_LED_ON		0	// low active (all 5xx series)
 #define RA_LED_OFF		1
