@@ -242,12 +242,12 @@ function showClients(){
             // loop inside dhcps to find out if it is dhcp or static
             for(var j=0;j<dhcpArray.length;j++){
                 // if we found the ip inside dhcp list
-                if(dhcpArray[i].search(fields[2]) != -1){
+                if(dhcpArray[j].search(fields[2]) != -1){
                     // set dhcp
                     connType = "DHCP";
 
                     // split dhcp fields into tokens
-                    var dhcpFields = dhcpArray[i].split(" ");
+                    var dhcpFields = dhcpArray[j].split(" ");
 
                     // set deviceName
                     deviceName = dhcpFields[dhcpFields.length-1];
