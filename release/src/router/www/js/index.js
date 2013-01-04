@@ -241,19 +241,30 @@ function showClients(){
 
             // loop inside dhcps to find out if it is dhcp or static
             for(var j=0;j<dhcpArray.length;j++){
-                // if we found the ip inside dhcp list
-                if(dhcpArray[j].search(fields[2]) != -1){
-                    // set dhcp
-                    connType = "DHCP";
 
-                    // split dhcp fields into tokens
-                    var dhcpFields = dhcpArray[j].split(" ");
+                // grab out ip related to macaddress
+                var ipAddress = dhcpArray[j].match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g);
 
-                    // set deviceName
-                    deviceName = dhcpFields[dhcpFields.length-1];
+                // check if there any array
+                if(ipAddress){
 
-                    continue;
+                    // if we found the ip inside dhcp list
+                    if(ipAddress[0] == fields[2]){
+                        // set dhcp
+                        connType = "DHCP";
+
+                        // split dhcp fields into tokens
+                        var dhcpFields = dhcpArray[j].split(" ");
+
+                        // set deviceName
+                        deviceName = dhcpFields[dhcpFields.length-1];
+
+                        continue;
+                    }
+
+
                 }
+
             }
 
             clientsInfo += "<tr class='info'>";
