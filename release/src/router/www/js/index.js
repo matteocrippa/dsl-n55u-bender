@@ -274,7 +274,7 @@ function showUsb(){
     var usbInfo = "";
 
     // usb 1 info
-    var usb1_type = <% nvram_get("usb_path1"); %>;
+    var usb1_type = '<% nvram_get("usb_path1"); %>';
     var usb1_object = '<% nvram_get("usb_path1_manufacturer"); %> <% nvram_get("usb_path1_product"); %>';
     var usb1_removed = '<% nvram_get("usb_path1_removed"); %>';
 
@@ -289,7 +289,7 @@ function showUsb(){
         usb1_type = "";
 
     // usb 2 info
-    var usb2_type = <% nvram_get("usb_path2"); %>;
+    var usb2_type = '<% nvram_get("usb_path2"); %>';
     var usb2_object = '<% nvram_get("usb_path2_manufacturer"); %> <% nvram_get("usb_path2_product"); %>';
     var usb2_removed = '<% nvram_get("usb_path2_removed"); %>';
 
@@ -309,7 +309,7 @@ function showUsb(){
 
         usbInfo += "<tr class='";
         // check if is mounted
-        if(usb1_removed == 0)
+        if(parseInt(usb1_removed) == 0)
             usbInfo += "warning";
         else
             usbInfo += "success";
@@ -328,7 +328,7 @@ function showUsb(){
         usbInfo += "<tr class='";'"
 
         // check if is mounted
-        if(usb2_removed == 0)
+        if(parseInt(usb2_removed) == 0)
             usbInfo += "warning";
         else
             usbInfo += "success";
