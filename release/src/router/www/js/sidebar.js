@@ -89,8 +89,9 @@ menuContent += "</div></div>";
 
 // init interval time for modals
 var intervalProgressTime = 0;
-// init starting progress time
-var startProgressTime = 0;
+
+// init total amout of progress time
+var totalAmountProgressTime = 0;
 
 // reboot function
 function reboot(){
@@ -102,9 +103,7 @@ function reboot(){
             },function(data){
             });
     // set value for reboot
-    intervalProgressTime = 75;
-    // set value for starting upgrade progress
-    startProgressTime = parseInt(new Date().getTime()/1000);
+    intervalProgressTime = totalAmountProgressTime = 75;
     // start countdown process
     setInterval(updateProgress, 1000);
 }
@@ -112,14 +111,16 @@ function reboot(){
 // update progress function
 function updateProgress(){
     // calculate progress
-    var progress = parseInt(parseInt(new Date().getTime()/1000)/(intervalProgressTime+startProgressTime) * 100);
-
-    // if progress > 100 reload page
-    if(progress > 100)
+    var progress = (1-(intervalProgress/totalAmoutProgressTime))*100;
+    //
+    if(intervalProgressTime < 0)
         location.href = location.href;
     else { // otherwise update progress bar
         $('#progress').css('width',progress+'%')
     }
+
+    // decrement the progress
+    intervalProgressTime--;
 }
 
 
