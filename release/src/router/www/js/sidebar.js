@@ -102,9 +102,9 @@ function reboot(){
             },function(data){
             });
     // set value for reboot
-    intervalProgressTime = 75 * 1000;
+    intervalProgressTime = 75;
     // set value for starting upgrade progress
-    startProgressTime = new Date().getTime();
+    startProgressTime = parseInt(new Date().getTime()/1000);
     // start countdown process
     setInterval(updateProgress, 1000);
 }
@@ -112,7 +112,7 @@ function reboot(){
 // update progress function
 function updateProgress(){
     // calculate progress
-    var progress = parseInt(new Date().getTime()/(intervalProgressTime+startProgressTime) * 100);
+    var progress = parseInt(parseInt(new Date().getTime()/1000)/(intervalProgressTime+startProgressTime) * 100);
 
     // if progress > 100 reload page
     if(progress > 100)
