@@ -58,7 +58,7 @@
 
                 <h2>General Log</h2>
                 <textarea id="generalLog" style="width: 800px; height: 400px"><% nvram_dump("syslog.log","syslog.sh"); %></textarea>
-                <button class="btn btn-large btn-primary" type="button" onclick="downloadContent(this);">Save</button> <button class="btn btn-large btn-danger" type="button" onclick="$.post('apply.cgi', { 'current_page':'Main_LogStatus_Content.asp', 'action_mode':' Clear ', 'next_host':'' },  function(data) {location.href=location.href; });">Clear</button>
+                <button class="btn btn-large btn-primary" type="button" onclick="downloadContent($('#generalLog'));">Save</button> <button class="btn btn-large btn-danger" type="button" onclick="$.post('apply.cgi', { 'current_page':'Main_LogStatus_Content.asp', 'action_mode':' Clear ', 'next_host':'' },  function(data) {location.href=location.href; });">Clear</button>
                 <hr />
 
                 <h2>DHCP Leases</h2>
