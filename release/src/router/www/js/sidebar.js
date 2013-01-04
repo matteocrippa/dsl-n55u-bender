@@ -39,41 +39,41 @@ menuContent += "<li><a href='/b_wifi_wps.asp'>WPS</a></li>";
 if(rcSupport.search("ipv6") != -1){
     menuContent += "<li class='nav-header'>IPv6</li>";
 
-    menuContent += "<li><a href=''>IPv6 Settings</a></li>";
+    menuContent += "<li><a href='/b_ipv6.asp'>IPv6 Settings</a></li>";
 }
 
 
 // VPN menu
 menuContent += "<li class='nav-header'>VPN</li>";
 
-menuContent += "<li><a href=''>VPN Settings</a></li>";
+menuContent += "<li><a href='/b_vpn.asp'>VPN Settings</a></li>";
 
 
 // Firewall menu
 menuContent += "<li class='nav-header'>Firewall</li>";
 
-menuContent += "<li><a href=''>Firewall Settings</a></li>";
-menuContent += "<li><a href=''>URL Filter</a></li>";
-menuContent += "<li><a href=''>Keyword Filter</a></li>";
-menuContent += "<li><a href=''>Network Services Filter</a></li>";
+menuContent += "<li><a href='/b_firewall_settings.asp'>Firewall Settings</a></li>";
+menuContent += "<li><a href='/b_firewall_url_filter.asp'>URL Filter</a></li>";
+menuContent += "<li><a href='/b_firewall_keyword_filter.asp'>Keyword Filter</a></li>";
+menuContent += "<li><a href='/b_firewall_network_services_filter.asp'>Network Services Filter</a></li>";
 
 
 // USB menu
 menuContent += "<li class='nav-header'>Usb</li>";
 
-menuContent += "<li><a href=''>AiDisk</a></li>";
-menuContent += "<li><a href=''>Server Center</a></li>";
-menuContent += "<li><a href=''>Network Printer</a></li>";
-menuContent += "<li><a href=''>3G/4G Modem</a></li>";
-menuContent += "<li><a href=''>Download Master</a></li>";
-menuContent += "<li><a href=''>Media Server</a></li>";
+menuContent += "<li><a href='/b_usb_aidisk.asp'>AiDisk</a></li>";
+menuContent += "<li><a href='/b_usb_server_center.asp'>Server Center</a></li>";
+menuContent += "<li><a href='/b_usb_network_printer.asp'>Network Printer</a></li>";
+menuContent += "<li><a href='/b_usb_3g_modem.asp'>3G/4G Modem</a></li>";
+menuContent += "<li><a href='/b_usb_download_master.asp'>Download Master</a></li>";
+menuContent += "<li><a href='/b_usb_media_server.asp'>Media Server</a></li>";
 
 // Services menu
 menuContent += "<li class='nav-header'>Services</li>";
 
-menuContent += "<li><a href=''>Guest Network</a></li>";
-menuContent += "<li><a href=''>Traffic Manager</a></li>";
-menuContent += "<li><a href=''>Parental Control</a></li>";
+menuContent += "<li><a href='/b_guest_network.asp'>Guest Network</a></li>";
+menuContent += "<li><a href='/b_traffic_manager.asp'>Traffic Manager</a></li>";
+menuContent += "<li><a href='/b_parental_controlasp'>Parental Control</a></li>";
 
 function showSidebar(){
     // populate sidebar
