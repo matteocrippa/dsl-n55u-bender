@@ -6,7 +6,7 @@ var menuContent = "";
 menuContent += "<li class='nav-header'>Device</li>";
 menuContent += "<li class='active'><a href='/'>Status</a></li>";
 menuContent += "<li><a href=''>Administration</a></li>";
-menuContent += "<li><a href=''>Logs</a></li>";
+menuContent += "<li><a href='/b_logs.asp'>Logs</a></li>";
 
 // Dsl menu
 menuContent += "<li class='nav-header'>Dsl</li>";
