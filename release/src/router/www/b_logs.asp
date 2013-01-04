@@ -50,38 +50,34 @@
 
         <!-- contents -->
         <div class="span9">
-          <div class="hero-unit">
-            <h1>DSL-N55U Logs</h1>
-            <p>Here you can find different verbose logs of your device.</p>
-            </div>
             <div class="row-fluid">
 
                 <h2>DSL Log</h2>
-                <textarea><% nvram_dump("adsl/adsllog.log",""); %></textarea>
+                <textarea style="width: 800px; height: 400px"><% nvram_dump("adsl/adsllog.log",""); %></textarea>
                 <hr />
 
                 <h2>General Log</h2>
-                <textarea><% nvram_dump("syslog.log","syslog.sh"); %></textarea>
+                <textarea style="width: 800px; height: 400px"><% nvram_dump("syslog.log","syslog.sh"); %></textarea>
                 <hr />
 
                 <h2>DHCP Leases</h2>
-                <textarea><% nvram_dump("leases.log", "leases.sh"); %></textarea>
+                <textarea style="width: 800px; height: 400px"><% nvram_dump("leases.log", "leases.sh"); %></textarea>
                 <hr />
 
                 <h2>Wireless Log</h2>
-                <textarea><% nvram_dump("wlan11b_2g.log","wlan11b.sh"); %></textarea>
+                <textarea style="width: 800px; height: 400px"><% nvram_dump("wlan11b_2g.log","wlan11b.sh"); %></textarea>
                 <hr />
 
                 <h2>Port Forwarding Log</h2>
-                <textarea><% nvram_dump("iptable.log","iptable.sh"); %></textarea>
+                <textarea style="width: 800px; height: 400px"><% nvram_dump("iptable.log","iptable.sh"); %></textarea>
                 <hr />
 
                 <h2>Routing Table</h2>
-                <textarea><% nvram_dump("route.log","route.sh"); %></textarea>
+                <textarea style="width: 800px; height: 400px"><% nvram_dump("route.log","route.sh"); %></textarea>
                 <hr />
 
                 <h2>Connections</h2>
-                <textarea><% nvram_dump("syscmd.log","../usr/sbin/netstat-nat.sh > /tmp/syscmd.log 2>&1"); %></textarea>
+                <textarea style="width: 800px; height: 400px"><% nvram_dump("syscmd.log","../usr/sbin/netstat-nat.sh > /tmp/syscmd.log 2>&1"); %></textarea>
                 <hr />
 
         </div>
