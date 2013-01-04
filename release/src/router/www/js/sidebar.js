@@ -95,7 +95,7 @@ var startProgressTime = 0;
 // reboot function
 function reboot(){
     // set value for label
-    $('#myModalLabel').val('Rebooting');
+    $('#myModalLabel').text('Rebooting');
     // request dsl-n55u to rebbot
     $.post('apply.cgi', {
             'action_mode':'reboot'
