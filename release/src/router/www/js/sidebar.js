@@ -111,7 +111,7 @@ function reboot(){
 // update progress function
 function updateProgress(){
     // calculate progress
-    var progress = (1-(intervalProgress/totalAmoutProgressTime))*100;
+    var progress = (1-(intervalProgressTime/totalAmoutProgressTime))*100;
     //
     if(intervalProgressTime < 0)
         location.href = location.href;
