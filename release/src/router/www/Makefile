@@ -154,7 +154,7 @@ ifneq ($(RTCONFIG_USB),y)
 	rm -rf $(INSTALLDIR)/www/device-map/safely_remove_disk.asp
 endif
 endif
-	cd $(INSTALLDIR)/www && ln -sf ../tmp/settings Settings_$(BUILD_NAME).CFG && cd $(TOP)/www 
+	cd $(INSTALLDIR)/www && ln -sf ../tmp/settings Settings_$(BUILD_NAME).CFG && cd $(TOP)/www
 ifeq ($(RTCONFIG_ODMPID), y)
 ifeq ($(BUILD_NAME), RT-AC66U)
 	cd $(INSTALLDIR)/www && ln -sf ../tmp/settings Settings_RT-AC66R.CFG && cd $(TOP)/www

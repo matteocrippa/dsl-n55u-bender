@@ -87,6 +87,7 @@
                 <hr/>
 
                 <h2>Wireless</h2>
+                <textarea id="wirelessLog" style="display:none;"><% nvram_dump("wlan11b_2g.log","wlan11b.sh"); %></textarea>
                 <table class="table">
                     <thead>
                         <tr>
@@ -104,6 +105,7 @@
         </div>
         <div class="row-fluid">
             <h3>Clients</h3>
+            <textarea id="dhcpString" style="display:none;"><% nvram_dump("leases.log", "leases.sh"); %></textarea>
              <table class="table">
                     <thead>
                         <tr>

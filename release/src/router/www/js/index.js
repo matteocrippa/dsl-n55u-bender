@@ -274,7 +274,7 @@ function showUsb(){
     var usbInfo = "";
 
     // usb 1 info
-    var usb1_type = '<% nvram_get("usb_path1"); %>';
+    var usb1_type = <% nvram_get("usb_path1"); %>;
     var usb1_object = '<% nvram_get("usb_path1_manufacturer"); %> <% nvram_get("usb_path1_product"); %>';
     var usb1_removed = '<% nvram_get("usb_path1_removed"); %>';
 
@@ -289,46 +289,58 @@ function showUsb(){
         usb1_type = "";
 
     // usb 2 info
-    var usb2_type = '<% nvram_get("usb_path2"); %>';
+    var usb2_type = <% nvram_get("usb_path2"); %>;
     var usb2_object = '<% nvram_get("usb_path2_manufacturer"); %> <% nvram_get("usb_path2_product"); %>';
     var usb2_removed = '<% nvram_get("usb_path2_removed"); %>';
 
     // replace usb type with correct icon
     if(usb2_type == "storage")
         usb2_type = "<i class='icon-hdd'></i>";
-    else if(usb1_type == "printer")
+    else if(usb2_type == "printer")
         usb2_type = "<i class='icon-print'></i>";
-    else
+    else if(usb2_type == "modem")
         usb2_type = "<i class='icon-signal'></i>";
-
+    else
+        usb2_type = "";
 
     // usb 1 slot
-    usbInfo += "<tr class='";
-    // check if is mounted
-    if(usb1_removed == "0")
-        usbInfo += "warning";
-    else
-        usbInfo += "success";
-    usbInfo += "'>";
-    usbInfo += "<td>1</td>";
-    usbInfo += "<td>"+usb1_object+"</td>";
-    usbInfo += "<td>"+usb1_type+"</td>";
-    usbInfo += "</tr>";
+    // if there is something attached
+    if(usb1_type.length > 0){
+
+        usbInfo += "<tr class='";
+        // check if is mounted
+        if(usb1_removed == 0)
+            usbInfo += "warning";
+        else
+            usbInfo += "success";
+        usbInfo += "'>";
+        usbInfo += "<td>1</td>";
+        usbInfo += "<td>"+usb1_object+"</td>";
+        usbInfo += "<td>"+usb1_type+"</td>";
+        usbInfo += "</tr>";
+
+    }
 
     // usb 2 slot
-    usbInfo += "<tr class='";
-    // check if is mounted
-    if(usb2_removed == "0")
-        usbInfo += "warning";
-    else
-        usbInfo += "success";
-    usbInfo += "'>";
-    usbInfo += "<td>2</td>";
-    usbInfo += "<td>"+usb2_object+"</td>";
-    usbInfo += "<td>"+usb2_type+"</td>";
-    usbInfo += "</tr>";
+    // if there is something attached
+    if(usb2_type.length > 0){
 
-    // populate html
+        usbInfo += "<tr class='";'"
+
+        // check if is mounted
+        if(usb2_removed == 0)
+            usbInfo += "warning";
+        else
+            usbInfo += "success";
+
+        usbInfo += "'>";
+        usbInfo += "<td>2</td>";
+        usbInfo += "<td>"+usb2_object+"</td>";
+        usbInfo += "<td>"+usb2_type+"</td>";
+        usbInfo += "</tr>";
+    }
+
+        // populate html
     $('#usbinfo').html(usbInfo);
 }
 
