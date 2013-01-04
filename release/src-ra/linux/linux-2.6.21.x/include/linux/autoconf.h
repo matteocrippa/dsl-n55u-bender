@@ -1,7 +1,7 @@
 /*
  * Automatically generated C config: don't edit
  * Linux kernel version: 2.6.2219
- * Wed Jan  2 19:29:15 2013
+ * Fri Jan  4 00:51:47 2013
  */
 #define AUTOCONF_INCLUDED
 #define CONFIG_RALINK_RT3662_2T2R 1
