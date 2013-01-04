@@ -85,10 +85,7 @@ menuContent += "</div>";
 menuContent += "<div class='modal-body'>";
 menuContent += "<h4>Please wait...</h4>";
 menuContent += "<div class='progress progress-striped active'> <div class='bar' id='progress' style='width: 0%;'></div> </div>";
-menuContent += "</div>";
-// Reboot button
-menuContent += "<hr>";
-menuContent += "<a onclick='javascript:reboot();' data-toggle='modal' href='#myModal' class='btn btn-large btn-danger' style='width:320px;'>Reboot</a>";
+menuContent += "</div></div>";
 
 // init interval time for modals
 var intervalProgressTime = 0;
@@ -130,7 +127,8 @@ function updateProgress(){
 function showSidebar(){
     // populate sidebar
     $('#sidebarmenu').html(menuContent);
-
+    // add reboot button
+    $('#sidebarmenu').append('<hr/><a onclick="javascript:reboot();" data-toggle="modal" href="#myModal" class="btn btn-large btn-danger" style="width:250px;">Reboot</a>');
     // auto set current page with class='active'
     $( "#sidebarmenu li" ).each(function( index ) {
 
