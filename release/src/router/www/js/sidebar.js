@@ -75,6 +75,58 @@ menuContent += "<li><a href='/b_guest_network.asp'>Guest Network</a></li>";
 menuContent += "<li><a href='/b_traffic_manager.asp'>Traffic Manager</a></li>";
 menuContent += "<li><a href='/b_parental_controlasp'>Parental Control</a></li>";
 
+
+// Modal
+menuContent += "<div id='myModal' class='modal hide fade' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>";
+menuContent += "<div class='modal-header'>";
+menuContent += "<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>";
+menuContent += "<h3 id='myModalLabel'></h3>";
+menuContent += "</div>";
+menuContent += "<div class='modal-body'>";
+menuContent += "<h4>Please wait...</h4>";
+menuContent += "<div class='progress progress-striped active'> <div class='bar' id='progress' style='width: 0%;'></div> </div>";
+menuContent += "</div>";
+// Reboot button
+menuContent += "<hr>";
+menuContent += "<a onclick='javascript:reboot();' data-toggle='modal' href='#myModal' class='btn btn-large btn-danger' style='width:320px;'>Reboot</a>";
+
+// init interval time for modals
+var intervalProgressTime = 0;
+// init starting progress time
+var startProgressTime = 0;
+
+// reboot function
+function reboot(){
+    // set value for label
+    $('#myModalLabel').val('Rebooting');
+    // request dsl-n55u to rebbot
+    $.post('apply.cgi', {
+            'action_mode':'reboot'
+            },function(data){
+            });
+    // set value for reboot
+    intervalProgressTime = 75 * 1000;
+    // set value for starting upgrade progress
+    startProgressTime = new Date().getTime();
+    // start countdown process
+    setInterval(updateProgress, 1000);
+}
+
+// update progress function
+function updateProgress(){
+    // calculate progress
+    var progress = parseInt(new Date().getTime()/(intervalProgressTime+startProgressTime) * 100);
+
+    // if progress > 100 reload page
+    if(progress > 100)
+        location.href = location.href;
+    else { // otherwise update progress bar
+        $('#progress').css('width',progress+'%')
+    }
+}
+
+
+// sidebar function
 function showSidebar(){
     // populate sidebar
     $('#sidebarmenu').html(menuContent);
