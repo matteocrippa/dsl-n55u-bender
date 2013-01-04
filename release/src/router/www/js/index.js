@@ -325,7 +325,7 @@ function showUsb(){
     // if there is something attached
     if(usb2_type.length > 0){
 
-        usbInfo += "<tr class='";'"
+        usbInfo += "<tr class='";
 
         // check if is mounted
         if(parseInt(usb2_removed) == 0)
