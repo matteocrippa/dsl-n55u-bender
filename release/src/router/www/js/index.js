@@ -145,7 +145,7 @@ function showWirelessInfo(){
     wirelessInfo +="'>";
     wirelessInfo +="<td>2.4 GHz</td>";
     wirelessInfo +="<td>"+ssid_status_2g+"</td>";
-    if(is2GEnabled == -1)
+    if(is2GEnabled != -1)
         wirelessInfo +="<td>Disabled</td>";
     else
         wirelessInfo +="<td>Active</td>";
@@ -188,7 +188,7 @@ function showWirelessInfo(){
     wirelessInfo +="'>";
     wirelessInfo +="<td>5 GHz</td>";
     wirelessInfo +="<td>"+ssid_status_5g+"</td>";
-    if(is5GEnabled == -1)
+    if(is5GEnabled != -1)
         wirelessInfo +="<td>Disabled</td>";
     else
         wirelessInfo +="<td>Active</td>";
