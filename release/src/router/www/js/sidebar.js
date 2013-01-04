@@ -4,7 +4,7 @@ var rcSupport = '<% nvram_get("rc_support"); %>';
 var menuContent = "";
 
 menuContent += "<li class='nav-header'>Device</li>";
-menuContent += "<li class='active'><a href='/b_index.asp'>Status</a></li>";
+menuContent += "<li><a href='/b_index.asp'>Status</a></li>";
 menuContent += "<li><a href='/b_admin.asp'>Administration</a></li>";
 menuContent += "<li><a href='/b_logs.asp'>Logs</a></li>";
 
