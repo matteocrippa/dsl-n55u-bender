@@ -262,7 +262,7 @@ function enableWifi(what){
                 'wl_radio_time_x_endhour':'23',
                 'wl_radio_time_x_endmin':'59',
                 'wl_radio_time2_x_starthour':'00',
-                'wl_radio_time2_x_startmin''00',
+                'wl_radio_time2_x_startmin':'00',
                 'wl_radio_time2_x_endhour':'23',
                 'wl_radio_time2_x_endmin':'59',
                 'wl_radio_date_x':'1111111',
