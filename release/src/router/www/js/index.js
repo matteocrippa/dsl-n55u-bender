@@ -240,7 +240,7 @@ function showWirelessInfo(){
 // declare activate wifi function
 function enableWifi(what){
     // set value for modal label
-    $'#myModalLabel').text('Wireless Rebooting');
+    $('#myModalLabel').text('Wireless Rebooting');
     // request via POST to activate wifi
     $.post('start_apply.htm',
             {
@@ -280,7 +280,7 @@ function enableWifi(what){
 function disableWifi(what){
 
     // set value for modal label
-    $'#myModalLabel').text('Wireless Rebooting');
+    $('#myModalLabel').text('Wireless Rebooting');
     // request via POST to activate wifi
     $.post('start_apply.htm',
             {
