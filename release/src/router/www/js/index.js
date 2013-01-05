@@ -168,7 +168,7 @@ function showWirelessInfo(){
         wirelessInfo +="<td>Disabled</td>";
     else
         wirelessInfo +="<td>Active</td>";
-    w
+
     wirelessInfo +="<td>"+wirelessSecurity2G+"</td>";
     wirelessInfo +="<td><% nvram_get("wl0_channel"); %></td>";
     wirelessInfo +="</tr>";
