@@ -145,10 +145,30 @@ function showWirelessInfo(){
     wirelessInfo +="'>";
     wirelessInfo +="<td>2.4 GHz</td>";
     wirelessInfo +="<td>"+ssid_status_2g+"</td>";
+    wirelessInfo +="<td><div class='btn-group'>";
+    // WiFi 2.4GHz is disabled
+    if(is2GEnabled !=1){
+
+        wirelessInfo +="<a class='btn btn-danger dropdown-toggle' data-toggle='dropdown' href='#'>Disabled<span class='caret'></span></a>";
+        wirelessInfo +="<ul class='dropdown-menu'>";
+        wirelessInfo +="<li><a onclick='javascript:enableWifi(0);' data-toggle='modal' href='#myModal'>Enable</a></li>";
+        wirelessInfo +="</ul>";
+
+    }else{ // otherwise
+
+        wirelessInfo +="<a class='btn btn-success dropdown-toggle' data-toggle='dropdown' href='#'>Active<span class='caret'></span></a>";
+        wirelessInfo +="<ul class='dropdown-menu'>";
+        wirelessInfo +="<li><a onclick='javascript:disableWifi(0);' data-toggle='modal' href='#myModal'>Disable</a></li>";
+        wirelessInfo +="</ul>";
+
+    }
+    wirelessInfo +="</div></td>"
+
     if(is2GEnabled != -1)
         wirelessInfo +="<td>Disabled</td>";
     else
         wirelessInfo +="<td>Active</td>";
+    w
     wirelessInfo +="<td>"+wirelessSecurity2G+"</td>";
     wirelessInfo +="<td><% nvram_get("wl0_channel"); %></td>";
     wirelessInfo +="</tr>";
@@ -188,10 +208,26 @@ function showWirelessInfo(){
     wirelessInfo +="'>";
     wirelessInfo +="<td>5 GHz</td>";
     wirelessInfo +="<td>"+ssid_status_5g+"</td>";
-    if(is5GEnabled != -1)
-        wirelessInfo +="<td>Disabled</td>";
-    else
-        wirelessInfo +="<td>Active</td>";
+
+    wirelessInfo +="<td><div class='btn-group'>";
+    // WiFi 5GHz is disabled
+    if(is5GEnabled !=1){
+
+        wirelessInfo +="<a class='btn btn-danger dropdown-toggle' data-toggle='dropdown' href='#'>Disabled<span class='caret'></span></a>";
+        wirelessInfo +="<ul class='dropdown-menu'>";
+        wirelessInfo +="<li><a onclick='javascript:enableWifi(1);' data-toggle='modal' href='#myModal'>Enable</a></li>";
+        wirelessInfo +="</ul>";
+
+    }else{ // otherwise
+
+        wirelessInfo +="<a class='btn btn-success dropdown-toggle' data-toggle='dropdown' href='#'>Active<span class='caret'></span></a>";
+        wirelessInfo +="<ul class='dropdown-menu'>";
+        wirelessInfo +="<li><a onclick='javascript:disableWifi(1);' data-toggle='modal' href='#myModal'>Disable</a></li>";
+        wirelessInfo +="</ul>";
+
+    }
+    wirelessInfo +="</div></td>"
+
     wirelessInfo +="<td>"+wirelessSecurity5G+"</td>";
     wirelessInfo +="<td><% nvram_get("wl1_channel"); %></td>";
     wirelessInfo +="</tr>";
@@ -200,6 +236,75 @@ function showWirelessInfo(){
     $('#wirelessinfo').html(wirelessInfo);
 
 }
+
+// declare activate wifi function
+function enableWifi(what){
+    // set value for modal label
+    $'#myModalLabel').text('Wireless Rebooting');
+    // request via POST to activate wifi
+    $.post('start_apply.htm',
+            {
+                'action_mode':'apply',
+                'action_script':'restart_wireless',
+                'action_wait':'3',
+                'wl_unit':what,
+                'wl_subunit':'-1',
+                'wl_radio':'1',
+                'wl_radio_date_x_Mon':'on',
+                'wl_radio_date_x_Tue':'on',
+                'wl_radio_date_x_Wed':'on',
+                'wl_radio_date_x_Thu':'on',
+                'wl_radio_date_x_Fri':'on',
+                'wl_radio_date_x_Sat':'on',
+                'wl_radio_date_x_Sun':'on',
+                'wl_radio_time_x_starthour':'00',
+                'wl_radio_time_x_startmin':'00',
+                'wl_radio_time_x_endhour':'23',
+                'wl_radio_time_x_endmin':'59',
+                'wl_radio_time2_x_starthour':'00',
+                'wl_radio_time2_x_startmin''00',
+                'wl_radio_time2_x_endhour':'23',
+                'wl_radio_time2_x_endmin':'59',
+                'wl_radio_date_x':'1111111',
+                'wl_radio_time_x':'00002359',
+                'wl_radio_time2_x':'00002359'
+            },function(data){  });
+
+    // set value for reboot
+    intervalProgressTime = totalAmountProgressTime = 32;
+    // start countdown process
+    setInterval(updateProgress, 1000);
+}
+
+// declare deactivate wifi function
+function disableWifi(what){
+
+    // set value for modal label
+    $'#myModalLabel').text('Wireless Rebooting');
+    // request via POST to activate wifi
+    $.post('start_apply.htm',
+            {
+                'action_mode':'apply',
+                'action_script':'restart_wireless',
+                'action_wait':'3',
+                'wl_unit':what,
+                'wl_subunit':'-1',
+                'wl_radio':'1',
+                'wl_radio_date_x_Fri':'on',
+                'wl_radio_time_x_starthour':'04',
+                'wl_radio_time_x_startmin':'00',
+                'wl_radio_time_x_endhour':'04',
+                'wl_radio_time_x_endmin':'05',
+                'wl_radio_date_x':'0000010',
+                'wl_radio_time_x':'0400405',
+            },function(data){  });
+
+    // set value for reboot
+    intervalProgressTime = totalAmountProgressTime = 32;
+    // start countdown process
+    setInterval(updateProgress, 1000);
+}
+
 
 // generate clients info
 function showClients(){
