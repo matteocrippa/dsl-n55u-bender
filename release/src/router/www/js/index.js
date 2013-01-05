@@ -206,7 +206,7 @@ function showWirelessInfo(){
 
     wirelessInfo +="<td><div class='btn-group'>";
     // WiFi 5GHz is disabled
-    if(is5GEnabled !=1){
+    if(is5GEnabled != 1){
 
         wirelessInfo +="<a class='btn btn-danger dropdown-toggle' data-toggle='dropdown' href='#'>Disabled<span class='caret'></span></a>";
         wirelessInfo +="<ul class='dropdown-menu'>";
