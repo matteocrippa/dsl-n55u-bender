@@ -147,7 +147,7 @@ function showWirelessInfo(){
     wirelessInfo +="<td>"+ssid_status_2g+"</td>";
     wirelessInfo +="<td><div class='btn-group'>";
     // WiFi 2.4GHz is disabled
-    if(is2GEnabled !=1){
+    if(is2GEnabled != -1){
 
         wirelessInfo +="<a class='btn btn-danger dropdown-toggle' data-toggle='dropdown' href='#'>Disabled<span class='caret'></span></a>";
         wirelessInfo +="<ul class='dropdown-menu'>";
@@ -163,11 +163,6 @@ function showWirelessInfo(){
 
     }
     wirelessInfo +="</div></td>"
-
-    if(is2GEnabled != -1)
-        wirelessInfo +="<td>Disabled</td>";
-    else
-        wirelessInfo +="<td>Active</td>";
 
     wirelessInfo +="<td>"+wirelessSecurity2G+"</td>";
     wirelessInfo +="<td><% nvram_get("wl0_channel"); %></td>";
