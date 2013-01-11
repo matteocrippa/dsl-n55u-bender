@@ -206,7 +206,7 @@ function showWirelessInfo(){
 
     wirelessInfo +="<td><div class='btn-group'>";
     // WiFi 5GHz is disabled
-    if(is5GEnabled != 1){
+    if(is5GEnabled != -1){
 
         wirelessInfo +="<a class='btn btn-danger dropdown-toggle' data-toggle='dropdown' href='#'>Disabled<span class='caret'></span></a>";
         wirelessInfo +="<ul class='dropdown-menu'>";
@@ -291,7 +291,7 @@ function disableWifi(what){
                 'wl_radio_time_x_endhour':'04',
                 'wl_radio_time_x_endmin':'05',
                 'wl_radio_date_x':'0000010',
-                'wl_radio_time_x':'0400405',
+                'wl_radio_time_x':'04000405',
             },function(data){  });
 
     // set value for reboot
