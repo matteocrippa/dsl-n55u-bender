@@ -129,7 +129,7 @@ function showSidebar(){
     // populate sidebar
     $('#sidebarmenu').html(menuContent);
     // add reboot button
-    $('#sidebarmenu').append('<hr/><a onclick="javascript:reboot();" data-toggle="modal" href="#myModal" class="btn btn-large btn-danger" style="width:250px;">Reboot</a>');
+    $('#sidebarmenu').append('<hr/><a onclick="javascript:reboot();" data-toggle="modal" href="#myModal" class="btn btn-large btn-danger" style="width:90%;">Reboot</a>');
     // auto set current page with class='active'
     $( "#sidebarmenu li" ).each(function( index ) {
 
