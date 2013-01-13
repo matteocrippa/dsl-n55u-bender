@@ -80,7 +80,7 @@
 
                 <h2>Settings Management</h2>
                 <a onclick="javascript:restoreFactory();" data-toggle="modal" href="#myModal" class="btn btn-large btn-danger" style="width:250px;">Restore Factory Default Settings</a><br/>
-                <a onclick="javascript:saveSettings();" data-toggle="modal" href="#myModal" class="btn btn-large btn-danger" style="width:250px;">Save Settings</a><br/>
+                <a href="/Settings_DSL-N55U.CFG" class="btn btn-large btn-danger" target="_blank">Save Settings</a><br/>
                 <a onclick="javascript:restoreSettings();" data-toggle="modal" href="#myModal" class="btn btn-large btn-danger" style="width:250px;">Restore Settings</a> <input type="file" name="file" /><br/>
                 <hr/>
 
@@ -102,7 +102,7 @@
                             <td>
                                 <a class='btn btn-success dropdown-toggle' data-toggle='dropdown' href='#'>Active<span class='caret'></span></a>
                                 <ul class='dropdown-menu'>
-                                    <li><a onclick='javascript:disableWifi(0);' data-toggle='modal' href='#myModal'>Disable</a></li>
+                                    <li><a onclick='javascript:disableAdmin();' data-toggle='modal' href='#myModal'>Disable</a></li>
                                 </ul>
                             </td>
                         </tr>

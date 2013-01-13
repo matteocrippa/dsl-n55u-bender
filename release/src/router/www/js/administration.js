@@ -49,6 +49,14 @@ function resetPassword(){
             },function(data){});
 }
 
+// restore factory settings
+function restoreFactory(){
+
+}
+
+// restore settings
+
+
 
 // populate page
 function populatePage(){
