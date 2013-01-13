@@ -43,11 +43,9 @@
             <div class="row-fluid">
 
                 <h2>Administrator Password</h2>
-                <form>
-                    <p>New password: <input type="text" name="password" /></p>
-                    <p>Confirm new password: <input type="text" name="confirmpassword" /></p>
-                    <button onclick="javascript:updatePassword();">Change Password</button>
-                </form>
+                <p>New password: <input type="text" name="password" id="pass" /></p>
+                <p>Confirm new password: <input type="text" name="confirmpassword" id="confirmpass" /></p>
+                <a href="#myModal" data-toggle="modal" class="btn btn-large" onclick="javascript:resetPassword();">Change Password</a>
                 <hr />
 
                 <h2>Firmware Upgrade</h2>
@@ -73,7 +71,12 @@
                         </tr>
                     </tbody>
                 </table>
-                <p><input type="file" name="file" id="firmware"> <a href="#myModal" class="btn btn-large" onclick="javascript:upgradeFirmware();">Upgrade Firmware</a></p>
+                <p>
+                    <form action='' method='POST' enctype='multipart/form-data'>
+                        <input type="file" name="file" id="firmware">
+                        <a href="#myModal" data-toggle="modal" class="btn btn-large" onclick="javascript:upgradeFirmware();">Upgrade Firmware</a>
+                    </form>
+                </p>
                 <hr/>
 
                 <h2>Settings Management</h2>
@@ -127,12 +130,16 @@
     <!-- bender render pages -->
     <script src="/js/administration.js"></script>
     <script>
+
         $(document).ready(function(){
                 // dynamic layout
                 showSidebar();
                 showFooter();
 
-                // dynamic contents
+                // setup upload field to work in ajax mode
+                applyAjaxFileUpload('input#firmware');
+
+                // populate page content
                 populatePage();
         });
     </script>

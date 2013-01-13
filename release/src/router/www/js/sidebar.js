@@ -81,6 +81,7 @@ menuContent += "<div id='myModal' class='modal hide fade' tabindex='-1' role='di
 menuContent += "<div class='modal-header'>";
 menuContent += "<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>";
 menuContent += "<h3 id='myModalLabel'></h3>";
+menuContent += "<small id='myModalDescription'></small>";
 menuContent += "</div>";
 menuContent += "<div class='modal-body'>";
 menuContent += "<h4>Please wait...</h4>";
