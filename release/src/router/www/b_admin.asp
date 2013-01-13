@@ -74,7 +74,6 @@
                 <p>
                     <form action='' method='POST' enctype='multipart/form-data'>
                         <input type="file" name="file" id="firmware">
-                        <a href="#myModal" data-toggle="modal" class="btn btn-large" onclick="javascript:upgradeFirmware();">Upgrade Firmware</a>
                     </form>
                 </p>
                 <hr/>
