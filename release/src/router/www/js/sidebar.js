@@ -114,9 +114,9 @@ function updateProgress(){
     // calculate progress
     var progress = (1-(intervalProgressTime/totalAmountProgressTime))*100;
     //
-    if(intervalProgressTime < 0)
+    if(intervalProgressTime == 0)
         location.href = location.href;
-    else { // otherwise update progress bar
+    else if(intervalProgressTime > 0){ // otherwise update progress bar
         $('#progress').css('width',progress+'%')
     }
 
