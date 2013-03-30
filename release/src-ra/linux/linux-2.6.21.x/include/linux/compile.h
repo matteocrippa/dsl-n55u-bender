@@ -1,7 +1,7 @@
-/* This file is auto generated, version 36 */
+/* This file is auto generated, version 62 */
 #define UTS_MACHINE "mips"
-#define UTS_VERSION "#36 Fri Jan 4 09:21:52 CET 2013"
-#define LINUX_COMPILE_TIME "09:21:52"
+#define UTS_VERSION "#62 Sat Mar 30 19:18:02 CET 2013"
+#define LINUX_COMPILE_TIME "19:18:02"
 #define LINUX_COMPILE_BY "root"
 #define LINUX_COMPILE_HOST "asus"
 #define LINUX_COMPILE_DOMAIN ""

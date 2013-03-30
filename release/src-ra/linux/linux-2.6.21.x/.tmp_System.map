@@ -8409,7 +8409,7 @@
 80213478 A __stop___ex_table
 80214000 R __start_rodata
 80214000 R linux_banner
-80214058 R linux_proc_banner
+8021405c R linux_proc_banner
 80214570 R mips_io_port_base
 802146a0 r reloc_handlers_rela
 80214718 r reloc_handlers_rel

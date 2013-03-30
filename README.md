@@ -1,25 +1,39 @@
-asuswrt-merlin
+Asus DSL-N55U Custom Firmware • Codename Bender
+===============
+
+This project is a merge of two important projects about Asus manufactered router and modems: **AsusWRT** and **AsusWRT-Merlin**.
+
+Codename Bender extends the support of the well known **AsusWRT-Merlin** to _Ralink_ based devices (eg. _DSL-N55U_).
+
+The main purpose of the project is to create new lightweight version of the firmware in order to increase modem/router performances, providing a new and better gui.
+
+Any support/feedback is always welcome!
+
+==============
+Current Status - (Discontinued, feel free to start using the code to continue this work!)
 ==============
 
-This is an enhanced version of Asuswrt - the firmware used by all recent Asus routers.
+_v.1.0.0.0.2 alpha_
+_Rewriting HTML gui in order to decrease www data size._
 
-The goal of this project is to fix issues and bring some minor functionality adjustments to the
-original Asus firmware.  While some features do get added, this is not the main focus of this project.
-It is not meant to replace existing projects such as Tomato or DD-WRT, but rather to offer an alternative
-for people who prefer the original firmware featureset.
-
-At this time, the supported devices are:
-
-- RT-N66U
-- RT-AC66U
+==============
+Screenshots:
+==============
 
 
-Also available in experimental (untested) state:
-- RT-N16
+![Status Page](http://i47.tinypic.com/2re49ww.png)
 
-And finally compiled, but not working yet:
-- DSL-N55U
+_Status Page POC_
 
-Firmware builds can be downloaded from the official download site:
 
-http://www.mediafire.com/asuswrt-merlin/
+![WiFi Enable/Disable shortcut](http://i49.tinypic.com/15wb9k9.jpg)
+
+_WiFi Enable/Disable shortcuts directly in Status Page_
+
+==============
+References
+==============
+
+AsusWRT • http://www.asus.it/Networks/ADSL_Modem_Routers/DSLN55U_Annex_A/
+
+AsusWRT-Merlin • https://github.com/RMerl/asuswrt-merlin
