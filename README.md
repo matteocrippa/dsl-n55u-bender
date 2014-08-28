@@ -1,4 +1,5 @@
-Asus DSL-N55U Custom Firmware • Codename Bender
+Asus DSL-N55U Custom Firmware 
+Codename: Bender
 ===============
 
 This project is a merge of two important projects about Asus manufactered router and modems: **AsusWRT** and **AsusWRT-Merlin**.
@@ -37,3 +38,10 @@ References
 AsusWRT • http://www.asus.it/Networks/ADSL_Modem_Routers/DSLN55U_Annex_A/
 
 AsusWRT-Merlin • https://github.com/RMerl/asuswrt-merlin
+
+Donations
+===========================
+
+This work is free of any charge, but if you want to donate for a beer or a coffee feel free to do it!
+
+`Bitcoin: 1BWmKKaDzyvVqNQgZNUWV7rcU91MMqPAXT`
