@@ -10,12 +10,13 @@ The main purpose of the project is to create new lightweight version of the firm
 
 Any support/feedback is always welcome!
 
+First I would like to say a big thank you to matteocrippa for still having the code up for me to play around with
+
 ==============
-Current Status - (Discontinued, feel free to start using the code to continue this work!)
+Current Status - In Dev ;)
 ==============
 
-_v.1.0.0.0.2 alpha_
-_Rewriting HTML gui in order to decrease www data size._
+_v.1.0.0.0.2 alpha - Updating openssl, busybox, openvpn and lighthttpd 
 
 ==============
 Screenshots:
@@ -44,4 +45,6 @@ Donations
 
 This work is free of any charge, but if you want to donate for a beer or a coffee feel free to do it!
 
-`Bitcoin: 1BWmKKaDzyvVqNQgZNUWV7rcU91MMqPAXT`
+`Bitcoin: 1BWmKKaDzyvVqNQgZNUWV7rcU91MMqPAXT` - Original Coder
+
+`Bitcoin: 19mUB9HsvRaiLJE2uHQFgJR65RsjyVzfU2` - Current Development 
